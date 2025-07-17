@@ -1,26 +1,38 @@
-# CodeTest-FRONTEND
+# 🌐 CodeTest-FRONTEND
 
-#### Projeto de estudos voltado ao aprimoramento de habilidades e testes com novas tecnologias no desenvolvimento front-end.  
-### Tem como foco principal a integração com APIs, uso de bibliotecas de notificação, autenticação e organização modular do código.
-### Além de C# e Razor, o projeto também utiliza JavaScript para customizações de validação, interações visuais e efeitos dinâmicos. O layout é construído com Bootstrap para garantir responsividade e uma experiência visual consistente.
+Projeto de estudos voltado ao aprimoramento de habilidades e testes com novas tecnologias no desenvolvimento front-end, com foco em integração com APIs, autenticação e organização modular do código.
 
-Este projeto utiliza dois sistemas de notificação para melhorar a experiência do usuário e fornecer feedbacks claros e visuais:
+## 🛠️ Tecnologias Utilizadas
+
+### 🖥 Frontend
+- **ASP.NET Core MVC** (.NET 8.0) - Framework web
+- **C#** - Controllers e lógica de apresentação
+- **Razor Pages** - Renderização de views
+- **JavaScript** - Validações customizadas e interações visuais
+- **Bootstrap** - Layout responsivo e componentes UI
+- **HTML5/CSS3** - Estrutura e estilização
+
+### ⚙️ Backend (API separada)
+- **Web API** - Integração com API externa para dados
+
+### 🧩 Bibliotecas e Ferramentas
+- **NToastNotify** - Sistema de notificações toast
+- **SweetAlert2** - Modais e alertas interativos
+
+## 🎯 Padrões de Desenvolvimento
+
+- **MVC Pattern** - Separação clara de responsabilidades
+- **Factory Pattern** - Criação de objetos padronizada
+- **Service Layer** - Lógica de negócio isolada
+- **Extension Methods** - Funcionalidades customizadas reutilizáveis
+- **Modular Architecture** - Organização em módulos independentes
+
+## 🚀 Como executar
+
+1. Clone o repositório
+2. Restaure as dependências: `dotnet restore`
+3. Execute o projeto: `dotnet run`
+4. Acesse: `https://localhost:5001`
+
 ---
-## 🔔 Toast Notifications (NToastNotify com Toastr)
-
-O `NToastNotify` está integrado ao projeto com o tema `Toastr`, sendo utilizado para mensagens rápidas e não bloqueantes como:
-
-- Sucesso em ações (ex: login bem-sucedido)
-- Erros de validação
-- Avisos ou informações
-
-### ✅ Funcionalidades implementadas:
-- Título personalizado via extensão `AddCustomToast`
-- Posição no topo direito
-- Barra de progresso visível
-- Prevenção de mensagens duplicadas
-
-#### 📦 Exemplo de uso:
-
-```csharp
-_toastNotification.AddCustomToast(ToastType.Error, "Falha no login", "Usuário ou senha inválidos!");
+*Projeto desenvolvido para fins educacionais e experimentação com tecnologias front-end*
