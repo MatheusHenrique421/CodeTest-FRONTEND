@@ -26,6 +26,17 @@ namespace CodeTest_FRONTEND.Extensions
 					options.SlidingExpiration = true;
 				});
 
+			services.AddCors(options =>
+			{
+				options.AddPolicy("AllowMVC",
+					policy =>
+					{
+						policy.WithOrigins("https://localhost:7010") // porta do seu MVC
+							  .AllowAnyHeader()
+							  .AllowAnyMethod();
+					});
+			});
+
 			return services;
 		}
 
@@ -46,6 +57,8 @@ namespace CodeTest_FRONTEND.Extensions
 
 			// Configurar roteamento
 			app.ConfigureRouting();
+
+			app.UseCors("AllowMVC");
 
 			return app;
 		}

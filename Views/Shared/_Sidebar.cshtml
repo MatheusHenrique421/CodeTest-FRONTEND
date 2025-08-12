@@ -1,0 +1,37 @@
+﻿@{
+    var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
+    var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+<nav class="col-md-2 d-none d-md-block bg-light sidebar">
+    <div class="position-sticky pt-3">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")"
+                   aria-current="page" asp-controller="Home" asp-action="Index">
+                    <i class="bi bi-house"></i> Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "User" && currentAction == "Index" ? "active" : "")"
+                   asp-controller="Usuario" asp-action="Index">
+                    <i class="bi bi-people"></i> Usuários
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link @(currentController == "Relatorios" && currentAction == "Index" ? "active" : "")"
+                   asp-controller="Relatorios" asp-action="Index">
+                    <i class="bi bi-file-earmark-text"></i> Relatórios
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+
+<script>
+    document.getElementById('sidebarToggle').addEventListener('click', function () {
+        document.querySelector('.sidebar').classList.toggle('collapsed');
+    });
+</script>

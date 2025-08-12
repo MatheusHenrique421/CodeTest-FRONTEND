@@ -1,0 +1,34 @@
+﻿@using CodeTest_FRONTEND.Models.Usuario
+@model List<UsuarioViewModel>
+
+<h2>Lista de Usuários - Partial</h2>
+<div class="table-responsive">
+    <table id="tabelaUsuarios" class="table table-bordered table-hover align-middle text-center" ">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Permissão</th>
+                <th>Data Cadastro</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                 <tr>
+                     <td>@user.Nome </td>                      
+                     <td>@user.Email</td>
+                     <td>@user.Role</td>
+                     <td>@user.DataCriacao?.ToString("dd/MM/yyyy")</td>
+                        @* <td data-nascimento="@user.DataNascimento">@user.DataNascimentoFormatada</td>
+                                <td class="idade"></td>
+                                <td>
+                                    <span class="badge @(user.EmailCorporativo ? "bg-success" : "bg-danger")">
+                                @(user.EmailCorporativo ? "Sim" : "Não")
+                                    </span>
+                       </td> *@
+                  </tr>
+            }
+        </tbody>
+    </table>
+</div>

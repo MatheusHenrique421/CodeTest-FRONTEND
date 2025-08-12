@@ -1,11 +1,11 @@
 ﻿using CodeTest_FRONTEND.Models.Login;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
+using CodeTest_FRONTEND.Extensions;
 using Microsoft.AspNetCore.Mvc;
+using CodeTest_FRONTEND.Enums;
 using System.Security.Claims;
 using NToastNotify;
-using CodeTest_FRONTEND.Extensions;
-using CodeTest_FRONTEND.Enums;
 
 namespace CodeTest_FRONTEND.Controllers
 {
@@ -53,10 +53,11 @@ namespace CodeTest_FRONTEND.Controllers
 			return View(model);
 		}
 
-		[HttpPost]
+		[HttpGet]
 		public async Task<IActionResult> Logout()
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+			_toastNotification.AddCustomToast(ToastTypeEnum.Success, "Sucesso!", "Logout realizado com sucesso");
 			return RedirectToAction("Login", "Account");
 		}
 	}

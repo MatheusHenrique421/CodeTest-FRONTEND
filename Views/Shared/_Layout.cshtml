@@ -13,6 +13,8 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <!-- sidebar lateral -->
+    <link rel="stylesheet" href="~/css/sidebar.css" asp-append-version="true" />
     @* <link rel="stylesheet" href="~/CodeTest_FRONTEND.styles.css" asp-append-version="true" /> *@
 
     <!-- NToastNotify -->
@@ -27,26 +29,62 @@
 }
 
 <body>
-    <div class="d-flex flex-column min-vh-100">
-        <!-- Separar em Partials-->
+    @if (currentController == "Account" && currentAction == "Login")
+    {
+        <!-- Tela de login ocupa 100% da altura da tela -->
+        <div class="d-flex justify-content-center align-items-center min-vh-100 w-100">
+            @RenderBody()
+        </div>
+    }
+    else
+    {
+        <!-- Estrutura padrão -->
+        <div class="d-flex flex-column min-vh-100">
+            <!-- Navbar Superior -->
+            <partial name="_Navbar" />
+
+            <!-- Área principal: sidebar + conteúdo -->
+            <div class="d-flex flex-grow-1">
+                <partial name="_Sidebar" />
+
+                <!-- Conteúdo principal -->
+                <main role="main" class="flex-grow-1 p-4 overflow-auto">
+                    @RenderBody()
+                </main>
+            </div>
+
+            <!-- Rodapé -->
+            <partial name="_Footer" />
+        </div>
+    }
+
+    @* <div class="d-flex flex-column">
+        <!-- Navbar Superior -->
         @if (!(currentController == "Account" && currentAction == "Login"))
         {
             <partial name="_Navbar" />
         }
 
-        <div class="container flex-grow-1">
+        <!-- Área principal: sidebar + conteúdo -->
+        <div class="d-flex flex-column min-vh-100">
+            @if (!(currentController == "Account" && currentAction == "Login"))
+            {
+                <partial name="_Sidebar" />
+            }
 
-            <main role="main" class="pb-3">
+            <!-- Conteúdo principal: vai rolar se ultrapassar a altura -->
+            <main role="main" class="flex-grow-1  overflow-auto">
                 @RenderBody()
             </main>
 
         </div>
 
+        <!-- Rodapé -->
         @if (!(currentController == "Account" && currentAction == "Login"))
         {
             <partial name="_Footer" />
         }
-    </div>
+    </div> *@
 
     <!-- jQuery (opcional para compatibilidade) -->
     @* <script src="~/lib/jquery/dist/jquery.min.js"></script> *@

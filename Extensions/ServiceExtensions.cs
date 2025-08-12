@@ -1,5 +1,6 @@
 ﻿using CodeTest_FRONTEND.Service.Interfaces;
 using CodeTest_FRONTEND.Service.Services;
+using System.Net.Http.Headers;
 using NToastNotify;
 
 namespace CodeTest_FRONTEND.Extensions
@@ -38,9 +39,15 @@ namespace CodeTest_FRONTEND.Extensions
 
 		private static IServiceCollection ConfigureHttpClients(this IServiceCollection services)
 		{
-			services.AddHttpClient<IRandomUserService, RandomUserService>(client =>
+			//services.AddHttpClient<IRandomUserService, RandomUserService>(client =>
+			//{
+			//	client.BaseAddress = new Uri("https://dummyjson.com/");
+			//});
+
+			services.AddHttpClient<IUsuarioService, UsuarioService>(client =>
 			{
-				client.BaseAddress = new Uri("https://dummyjson.com/");
+				client.BaseAddress = new Uri("https://localhost:7011/api/"); // URL base da sua API
+				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 			});
 
 			return services;
