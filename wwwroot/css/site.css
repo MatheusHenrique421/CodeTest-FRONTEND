@@ -1,36 +1,39 @@
 html, body {
     font-size: 14px;
-    height: 100%;
-    margin: 0;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
 }
 
 body {
-    margin-bottom: 60px;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
 }
 
 main {
-    flex: 1; /* faz o conteúdo ocupar o espaço restante */
+    transition: margin-left 0.3s ease;
 }
 
-footer {    
+.sidebar.expanded + main {
+    margin-left: 220px;
+}
+
+.sidebar:not(.expanded) + main {
+    margin-left: 60px;
+}
+
+footer {
     padding: 10px;
-    text-align: center;
+    height: 1px;
 }

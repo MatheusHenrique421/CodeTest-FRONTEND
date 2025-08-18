@@ -1,37 +1,51 @@
-﻿@{
+﻿<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+@{
     var currentController = ViewContext.RouteData.Values["controller"]?.ToString();
     var currentAction = ViewContext.RouteData.Values["action"]?.ToString();
 }
 
-<nav class="col-md-2 d-none d-md-block bg-light sidebar">
-    <div class="position-sticky pt-3">
-        <ul class="nav flex-column">
-            <li class="nav-item">
-                <a class="nav-link @(currentController == "Home" && currentAction == "Index" ? "active" : "")"
-                   aria-current="page" asp-controller="Home" asp-action="Index">
-                    <i class="bi bi-house"></i> Dashboard
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link @(currentController == "User" && currentAction == "Index" ? "active" : "")"
-                   asp-controller="Usuario" asp-action="Index">
-                    <i class="bi bi-people"></i> Usuários
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link @(currentController == "Relatorios" && currentAction == "Index" ? "active" : "")"
-                   asp-controller="Relatorios" asp-action="Index">
-                    <i class="bi bi-file-earmark-text"></i> Relatórios
-                </a>
-            </li>
-        </ul>
-    </div>
+<nav class="sidebar expanded" id="sidebar">
+    <!-- Botão de recolher -->
+    <button type="button" class="toggle-btn" id="toggle-btn">
+        <i class="fa-solid fa-caret-left"></i>
+    </button>
+
+    <!-- Logo -->
+    <section class="sidebar-logo" id="sidebar-logo">
+        <i class="fa-solid fa-web-awesome"></i>
+        <span class="logo-text mt-2">Meu Sistema</span>
+    </section>
+
+    <!-- Menu -->
+    <ul class="menu">
+        <li>
+            <a class="@(currentController == "Home" && currentAction == "Index" ? "active" : "")" asp-controller="Home" asp-action="Index">
+                <i class="fa-solid fa-house"></i><span>Home</span>
+            </a>
+        </li>
+        <li>
+            <a class="@(currentController == "Usuario" && currentAction == "Index" ? "active" : "")" asp-controller="Usuario" asp-action="Index">
+                <i class="fa-solid fa-users"></i><span>Usuários</span>
+            </a>
+        </li>
+        <li>
+            <a class="@(currentController == "Home" && currentAction == "Privacy" ? "active" : "")" asp-controller="Home" asp-action="Privacy">
+                <i class="fa-solid fa-file-lines"></i><span>Privacy</span>
+            </a>
+        </li>
+    </ul>
 </nav>
 
-
-
 <script>
-    document.getElementById('sidebarToggle').addEventListener('click', function () {
-        document.querySelector('.sidebar').classList.toggle('collapsed');
-    });
+    const sidebar = document.querySelector("#sidebar");
+    const toggleBtn = document.querySelector("#toggle-btn");
+    const sidebarLogo = document.querySelector("#sidebar-logo");
+
+    function toggleSidebar() {
+        sidebar.classList.toggle("expanded");
+    }
+
+    toggleBtn.addEventListener("click", toggleSidebar);
+    sidebarLogo.addEventListener("click", toggleSidebar);
 </script>

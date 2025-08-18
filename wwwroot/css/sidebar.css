@@ -1,39 +1,62 @@
-﻿/* Estado normal já existe (220px) */
-.sidebar {
-    width: 220px;
-    min-width: 220px;
-    border-right: 1px solid #e9ecef;
-    height: calc(100vh - 56px);
-    position: fixed;
-    top: 56px;
-    left: 0;
-    overflow-y: auto;
-    transition: transform 0.3s ease;
+﻿.sidebar .toggle-btn {
+    /*background-color: #1f1f1f;*/
+    border: none;
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    /* centralizar dentro da sidebar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 50px;
+    margin-top: 0px;
 }
 
-    /* Estado recolhido */
-    .sidebar.collapsed {
-        transform: translateX(-100%);
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+    .sidebar-logo i {
+        font-size: 1.5rem;
     }
 
-/* Ajusta conteúdo e rodapé quando recolhe */
-main {
-    margin-left: 220px;
-    transition: margin-left 0.3s ease;
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
 
-.sidebar.collapsed ~ main {
-    margin-left: 0;
+    .menu li a {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0.8rem 1rem;
+        text-decoration: none;
+        transition: background 0.2s;
+    }
+
+        .menu li a:hover, .menu li a.active {
+            background-color: #333;
+        }
+
+.sidebar.expanded span {
+    display: inline;
 }
 
-.sidebar.collapsed ~ footer {
-    margin-left: 0;
+.sidebar:not(.expanded) span {
+    display: none;
+    min-width: 150px;
 }
 
-.nav-link.active {
-    background-color: #cccccc;
-    color: white !important;
-    font-weight: 600;
-    border-radius: 0.375rem;
-    padding: 0.4rem 1rem;
+.sidebar:not(.expanded) {
+    width: 60px;
 }
+
+    .sidebar:not(.expanded) .toggle-btn i {
+        transform: rotate(180deg);
+    }
