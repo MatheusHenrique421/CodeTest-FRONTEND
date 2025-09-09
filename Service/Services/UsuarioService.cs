@@ -18,7 +18,7 @@ public class UsuarioService : IUsuarioService
 		_logger = logger;
 	}
 
-	public async Task<List<UsuarioViewModel>> ObterUsuariosAsync()
+	public async Task<List<UsuarioDto>> ObterUsuarios()
 	{
 		try
 		{
@@ -26,14 +26,38 @@ public class UsuarioService : IUsuarioService
 			response.EnsureSuccessStatusCode();
 
 			var json = await response.Content.ReadAsStringAsync();
-			var usuarios = JsonConvert.DeserializeObject<List<UsuarioViewModel>>(json);
+			var usuarios = JsonConvert.DeserializeObject<List<UsuarioDto>>(json);
 			return usuarios;
 		}
 		catch (HttpRequestException ex)
 		{
 			_logger.LogError(ex, "Erro ao buscar usuários.");
 			// Erro de conexão com API
-			throw new ApiIndisponivelException("Não foi possível conectar à API de Usuários.", ex);			
+			throw new ApiIndisponivelException("Não foi possível conectar à API de Usuários.", ex);
+		}
+		catch (TaskCanceledException ex)
+		{
+			// Timeout
+			throw new ApiIndisponivelException("A API de Usuários demorou demais para responder.", ex);
+		}
+	}
+
+	public async Task<UsuarioDto> ObterUsuariosPorId(Guid id)
+	{
+		try
+		{
+			var response = await _httpClient.GetAsync($"usuario/BuscarPorId/{id}");
+			response.EnsureSuccessStatusCode();
+
+			var json = await response.Content.ReadAsStringAsync();
+			var usuario = JsonConvert.DeserializeObject<UsuarioDto>(json);
+
+			return usuario;
+		}
+		catch (HttpRequestException ex)
+		{
+			_logger.LogError(ex, "Erro ao buscar usuário por ID.");
+			throw new ApiIndisponivelException("Não foi possível conectar à API de Usuários.", ex);
 		}
 		catch (TaskCanceledException ex)
 		{
@@ -43,12 +67,18 @@ public class UsuarioService : IUsuarioService
 	}
 
 	// Exemplo de criação de usuário
-	public async Task<bool> CriarUsuarioAsync(UsuarioDto usuario)
+	public async Task<bool> CriarUsuario(UsuarioCreateDto usuario)
 	{
 		try
 		{
 			var content = new StringContent(JsonConvert.SerializeObject(usuario), Encoding.UTF8, "application/json");
-			var response = await _httpClient.PostAsync("usuario", content);
+			var response = await _httpClient.PostAsync("usuario/Criar", content);
+
+			var respostaJson = await response.Content.ReadAsStringAsync();
+			if (!response.IsSuccessStatusCode)
+			{
+				_logger.LogError("Erro ao criar usuário: {StatusCode} - {Resposta}", response.StatusCode, respostaJson);
+			}
 			return response.IsSuccessStatusCode;
 		}
 		catch (Exception ex)
@@ -57,4 +87,27 @@ public class UsuarioService : IUsuarioService
 			return false;
 		}
 	}
+
+	public async Task<bool> AlterarUsuario(Guid id, UsuarioUpdateDto usuario)
+	{
+		try
+		{
+			var content = new StringContent(JsonConvert.SerializeObject(usuario), Encoding.UTF8, "application/json");
+			var response = await _httpClient.PutAsync($"usuario/Alterar/{id}", content);
+
+			response.EnsureSuccessStatusCode();
+			return true;
+		}
+		catch (HttpRequestException ex)
+		{
+			_logger.LogError(ex, "Erro ao alterar usuário.");
+			throw new ApiIndisponivelException("Não foi possível conectar à API de Usuários.", ex);
+		}
+		catch (TaskCanceledException ex)
+		{
+			// Timeout
+			throw new ApiIndisponivelException("A API de Usuários demorou demais para responder.", ex);
+		}
+	}
+
 }

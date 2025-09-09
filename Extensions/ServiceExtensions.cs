@@ -39,14 +39,26 @@ namespace CodeTest_FRONTEND.Extensions
 
 		private static IServiceCollection ConfigureHttpClients(this IServiceCollection services)
 		{
-			//services.AddHttpClient<IRandomUserService, RandomUserService>(client =>
+			// agora você usa o método genérico
+			services.AddApiService<IUsuarioService, UsuarioService>();
+			services.AddApiService<IPessoaService, PessoaService>();
+
+			return services;
+			//services.AddHttpClient<IUsuarioService, UsuarioService>(client =>
 			//{
-			//	client.BaseAddress = new Uri("https://dummyjson.com/");
+			//	client.BaseAddress = new Uri("https://localhost:7011/api/"); // URL base da sua API
+			//	client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 			//});
 
-			services.AddHttpClient<IUsuarioService, UsuarioService>(client =>
+			//return services;
+		}
+
+		// 🔹 Aqui está o helper genérico
+		private static IServiceCollection AddApiService<TInterface, TImplementation>(this IServiceCollection services) where TInterface : class where TImplementation : class, TInterface
+		{
+			services.AddHttpClient<TInterface, TImplementation>(client =>
 			{
-				client.BaseAddress = new Uri("https://localhost:7011/api/"); // URL base da sua API
+				client.BaseAddress = new Uri("https://localhost:7011/api/");
 				client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 			});
 

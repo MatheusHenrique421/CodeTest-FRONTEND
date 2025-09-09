@@ -1,0 +1,22 @@
+﻿@using CodeTest_FRONTEND.Models.Usuario
+@model UsuarioViewModel
+
+@{
+    ViewData["Title"] = "Editar Usuários";
+}
+
+
+<div class="container-fluid">
+    <div class="text-center mb-3">
+        <h1 class="display-4">@ViewBag.Title</h1>
+    </div>
+
+
+    <!-- Chamada da partial view -->
+    @await Html.PartialAsync("_Formulario", Model)
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

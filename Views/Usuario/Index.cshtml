@@ -1,5 +1,5 @@
 ﻿@using CodeTest_FRONTEND.Models.Usuario
-@model List<UsuarioViewModel>
+@model IEnumerable<UsuarioViewModel>
 
 @{
     ViewData["Title"] = "Usuários";
@@ -16,7 +16,9 @@
 
         <!-- BOTÕES FILTRAR-->
         <div class="col-12 col-sm-6 col-md-3 col-lg-2">
-            <button type="button" class="btn btn-primary rounded">Cadastrar</button>
+            <a asp-controller="Usuario" asp-action="Cadastrar" class="btn btn-primary rounded">
+                Cadastrar
+            </a>
         </div>
     </div>
 

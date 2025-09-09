@@ -1,0 +1,16 @@
+﻿@using CodeTest_FRONTEND.Models.Steps
+@model CadastroStepsViewModel
+
+<ul class="nav nav-tabs">
+    @foreach (var step in Model.Steps)
+    {
+        var isActive = Model.CurrentStep == step.Step ? "active" : "";
+        var isDisabled = Model.CurrentStep < step.Step ? "disabled" : "";
+
+
+        <li class="nav-item">
+            <a class="nav-link @(isActive != "" ? isActive : isDisabled)" asp-controller="@step.Controller" asp-action="@step.Action">@step.Label</a>
+        </li>
+
+    }
+</ul>

@@ -1,0 +1,54 @@
+﻿@using CodeTest_FRONTEND.Models.Steps
+@using CodeTest_FRONTEND.Models.Usuario
+@model UsuarioViewModel
+
+@{
+    ViewData["Title"] = "Cadastrar Usuários";
+}
+
+
+<div class="container-fluid">
+    <div class="text-center mb-3">
+        <h1 class="display-4">@ViewBag.Title</h1>
+    </div>
+
+
+    @{
+        var steps = new CadastroStepsViewModel 
+        {
+            CurrentStep = 1,
+            Steps = new List<StepLinkViewModel>
+            {
+            new StepLinkViewModel { Step = 1, Label = "Usuário", Controller = "Usuario", Action = "Cadastrar" },
+            new StepLinkViewModel { Step = 2, Label = "Pessoa", Controller = "Pessoa", Action = "Cadastrar" },
+            new StepLinkViewModel { Step = 3, Label = "Endereço", Controller = "Endereco", Action = "Cadastrar" }
+            }
+        };
+    }
+
+    <!-- Partial do Wizard -->
+    @await Html.PartialAsync("~/Views/Shared/Steps/_Steps.cshtml", steps)
+    @* <div class="row rounded bg-light">
+        <nav class="nav nav-pills nav-fill">
+            <a class="nav-link @(ViewBag.Step == 1 ? "active" : "")" asp-controller="Usuario" asp-action="Cadastrar">
+                Usuário
+            </a>
+            <a class="nav-link @(ViewBag.Step == 2 ? "active" : (ViewBag.Step < 2 ? "disabled" : ""))" asp-controller="Pessoa" asp-action="CadastrarPessoa">
+                Pessoa
+            </a>
+            <a class="nav-link @(ViewBag.Step == 3 ? "active" : (ViewBag.Step < 3 ? "disabled" : ""))" asp-controller="Endereco" asp-action="CadastrarEndereco">
+                Endereço
+            </a>
+        </nav>
+    </div> *@
+
+
+
+    <!-- Chamada da partial view -->
+    @await Html.PartialAsync("_Formulario", Model)
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

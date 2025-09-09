@@ -1,0 +1,41 @@
+﻿@using CodeTest_FRONTEND.Models.Pessoa
+@using CodeTest_FRONTEND.Models.Steps
+@model PessoaViewModel
+
+@{
+    ViewData["Title"] = "Cadastrar Pessoas";
+}
+
+
+<div class="container-fluid">
+    <div class="text-center mb-3">
+        <h1 class="display-4">@ViewBag.Title</h1>
+    </div>
+
+
+    @{
+        var steps = new CadastroStepsViewModel
+            {
+                CurrentStep = 2,
+                Steps = new List<StepLinkViewModel>
+    {
+    new StepLinkViewModel { Step = 1, Label = "Usuário", Controller = "Usuario", Action = "Cadastrar" },
+    new StepLinkViewModel { Step = 2, Label = "Pessoa", Controller = "Pessoa", Action = "Cadastrar" },
+    new StepLinkViewModel { Step = 3, Label = "Endereço", Controller = "Endereco", Action = "Cadastrar" }
+    }
+            };
+    }
+
+    <!-- Partial do Wizard -->
+    @await Html.PartialAsync("~/Views/Shared/Steps/_Steps.cshtml", steps)
+
+
+
+    <!-- Chamada da partial view -->
+    @await Html.PartialAsync("_Formulario", Model)
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
